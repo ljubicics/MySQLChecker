@@ -51,7 +51,7 @@ public class MainFrame extends JFrame implements Subscriber {
         this.add(new JScrollPane(jTable), BorderLayout.SOUTH);
         textArea = new JTextArea();
         this.add(textArea, BorderLayout.CENTER);
-
+        //proba
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
