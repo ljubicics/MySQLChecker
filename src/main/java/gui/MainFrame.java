@@ -52,6 +52,7 @@ public class MainFrame extends JFrame implements Subscriber {
         textArea = new JTextArea();
         this.add(textArea, BorderLayout.CENTER);
         //proba
+        //proba2
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
