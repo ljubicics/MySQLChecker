@@ -12,7 +12,7 @@ public class Main {
         AppCore appCore = new AppCore();
         MainFrame mainFrame = MainFrame.getInstance();
         mainFrame.setAppCore(appCore);
-
+        // komentar proba
     }
 
 }
