@@ -59,7 +59,7 @@ public class MYSQLrepository implements Repository{
             this.initConnection();
 
             DatabaseMetaData metaData = connection.getMetaData();
-            InformationResource ir = new InformationResource("RAF_BP_Primer");
+            InformationResource ir = new InformationResource("RAF_BP_TIM30");
 
             String tableType[] = {"TABLE"};
             ResultSet tables = metaData.getTables(connection.getCatalog(), null, null, tableType);
