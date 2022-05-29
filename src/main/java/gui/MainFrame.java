@@ -25,8 +25,8 @@ public class MainFrame extends JFrame implements Subscriber {
     private JTable jTable;
     private JScrollPane jsp;
     private JTree jTree;
-    private JPanel left;
-
+    private JPanel panel;
+    private JTextArea textArea;
     private MainFrame() {
 
     }
@@ -45,14 +45,16 @@ public class MainFrame extends JFrame implements Subscriber {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         jTable = new JTable();
-        jTable.setPreferredScrollableViewportSize(new Dimension(500, 400));
+        jTable.setPreferredScrollableViewportSize(new Dimension(200, 100));
         jTable.setFillsViewportHeight(true);
-        this.add(new JScrollPane(jTable));
+        this.setLayout(new BorderLayout());
+        this.add(new JScrollPane(jTable), BorderLayout.SOUTH);
+        textArea = new JTextArea();
+        this.add(textArea, BorderLayout.CENTER);
 
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-
 
     }
 
@@ -68,9 +70,9 @@ public class MainFrame extends JFrame implements Subscriber {
         jTree = new JTree(defaultTreeModel);
         jTree.addTreeSelectionListener(new SelectionListener());
         jsp = new JScrollPane(jTree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-        left = new JPanel(new BorderLayout());
-        left.add(jsp, BorderLayout.CENTER);
-        add(left, BorderLayout.WEST);
+        panel = new JPanel(new BorderLayout());
+        panel.add(jsp, BorderLayout.CENTER);
+        this.add(panel, BorderLayout.WEST);
         pack();
     }
 
