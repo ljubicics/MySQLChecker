@@ -62,17 +62,6 @@ public class MainFrame extends JFrame implements Subscriber {
         toolbarPanel.setPreferredSize(new Dimension(100, 50));
         toolbarPanel.add(toolBar);   // Ovde dodajes toolbar kad napravis, pre toga ga moras inicijalizovati!!!
 
-
-        //dodavanje buttona u toolbar
-        /*JButton buttonImport=new JButton("import");
-        JButton buttonExport=new JButton("export");
-        JButton buttonPretty=new JButton("pretty");
-        JButton buttonRun=new JButton("run");
-        toolBar.add(buttonImport);
-        toolBar.add(buttonExport);
-        toolBar.add(buttonPretty);
-        toolBar.add(buttonRun);*/
-
         this.setLayout(new BorderLayout());
         this.add(new JScrollPane(jTable), BorderLayout.SOUTH);
         this.add(textArea, BorderLayout.CENTER);
