@@ -8,6 +8,9 @@ import lombok.Setter;
 public class ActionManager {
 
     private ImportAction importAction;
+    private ExportAction exportAction;
+    private PrettyAction prettyAction;
+    private RunAction runAction;
 
     public ActionManager() {
         initialiseActions();
@@ -15,6 +18,9 @@ public class ActionManager {
 
     public void initialiseActions() {
         importAction = new ImportAction();
+        exportAction=new ExportAction();
+        prettyAction=new PrettyAction();
+        runAction=new RunAction();
     }
 
 }
