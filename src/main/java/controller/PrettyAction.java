@@ -34,8 +34,12 @@ public class PrettyAction extends AbstractDBAction{
             String finalText ="";
             for (int i = 0; i < reci.length; i++) {
                     if (keywordsList.contains(reci[i].toUpperCase())) {
-                        System.out.println(reci[i].toUpperCase());
-                        finalText += reci[i].toUpperCase() + " ";
+                        if (finalText == "") {
+                            finalText += reci[i].toUpperCase() + " ";
+                        } else {
+                            finalText += "\n";
+                            finalText += reci[i].toUpperCase() + " ";
+                        }
                     }
                   else {
                         finalText += reci[i] + " ";
