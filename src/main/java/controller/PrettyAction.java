@@ -31,13 +31,14 @@ public class PrettyAction extends AbstractDBAction{
             }
             bufferedReader.close();
 
+            String finalText ="";
             for (int i = 0; i < reci.length; i++) {
                 if(keywordsList.contains(reci[i].toUpperCase())) {
                     System.out.println(reci[i].toUpperCase());
-                    MainFrame.getInstance().getTextArea().setText(reci[i].toUpperCase());
+                    finalText += reci[i].toUpperCase() + " ";
                 }
             }
-
+            MainFrame.getInstance().getTextArea().setText(finalText);
         } catch (FileNotFoundException ex) {
             throw new RuntimeException(ex);
         } catch (IOException ex) {
