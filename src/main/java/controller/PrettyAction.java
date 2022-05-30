@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class PrettyAction extends AbstractDBAction{
     public PrettyAction() {
@@ -19,7 +20,6 @@ public class PrettyAction extends AbstractDBAction{
     public void actionPerformed(ActionEvent e) {
         String text = MainFrame.getInstance().getTextArea().getText();
         String[] reci = text.split(" ");
-        boolean flag = false;
         File file = new File("src/main/libraries/reserved_words.txt");
         BufferedReader bufferedReader;
         try {
@@ -33,10 +33,13 @@ public class PrettyAction extends AbstractDBAction{
 
             String finalText ="";
             for (int i = 0; i < reci.length; i++) {
-                if(keywordsList.contains(reci[i].toUpperCase())) {
-                    System.out.println(reci[i].toUpperCase());
-                    finalText += reci[i].toUpperCase() + " ";
-                }
+                    if (keywordsList.contains(reci[i].toUpperCase())) {
+                        System.out.println(reci[i].toUpperCase());
+                        finalText += reci[i].toUpperCase() + " ";
+                    }
+                  else {
+                        finalText += reci[i] + " ";
+                    }
             }
             MainFrame.getInstance().getTextArea().setText(finalText);
         } catch (FileNotFoundException ex) {
