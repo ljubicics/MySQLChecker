@@ -29,6 +29,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private JPanel right;
     private JPanel toolbarPanel;
     private JTextArea textArea;
+    private JToolBar toolBar;
     private MainFrame() {
 
     }
@@ -51,12 +52,25 @@ public class MainFrame extends JFrame implements Subscriber {
         right = new JPanel();
         textArea = new JTextArea();
         toolbarPanel = new JPanel();
+        toolBar=new JToolBar();
 
         jTable.setPreferredScrollableViewportSize(new Dimension(100, 200));
         jTable.setFillsViewportHeight(true);
         right.setPreferredSize(new Dimension(100, 100));
         toolbarPanel.setPreferredSize(new Dimension(100, 40));
-        /*toolbarPanel.add();*/   // Ovde dodajes toolbar kad napravis, pre toga ga moras inicijalizovati!!!
+        toolbarPanel.add(toolBar);   // Ovde dodajes toolbar kad napravis, pre toga ga moras inicijalizovati!!!
+
+        //dodavanje buttona u toolbar
+        JButton button1=new JButton("import");
+        JButton button2=new JButton("export");
+        JButton button3=new JButton("pretty");
+        JButton button4=new JButton("run");
+        toolBar.add(button1);
+        toolBar.add(button2);
+        toolBar.add(button3);
+        toolBar.add(button4);
+
+
 
         this.setLayout(new BorderLayout());
         this.add(new JScrollPane(jTable), BorderLayout.SOUTH);
