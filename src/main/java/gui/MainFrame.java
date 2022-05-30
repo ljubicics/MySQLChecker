@@ -25,7 +25,9 @@ public class MainFrame extends JFrame implements Subscriber {
     private JTable jTable;
     private JScrollPane jsp;
     private JTree jTree;
-    private JPanel panel;
+    private JPanel treePanel;
+    private JPanel right;
+    private JPanel toolbarPanel;
     private JTextArea textArea;
     private MainFrame() {
 
@@ -43,16 +45,25 @@ public class MainFrame extends JFrame implements Subscriber {
     private void initialise() {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setPreferredSize(new Dimension(800, 500));
 
         jTable = new JTable();
-        jTable.setPreferredScrollableViewportSize(new Dimension(200, 100));
+        right = new JPanel();
+        textArea = new JTextArea();
+        toolbarPanel = new JPanel();
+
+        jTable.setPreferredScrollableViewportSize(new Dimension(100, 200));
         jTable.setFillsViewportHeight(true);
+        right.setPreferredSize(new Dimension(100, 100));
+        toolbarPanel.setPreferredSize(new Dimension(100, 40));
+        /*toolbarPanel.add();*/   // Ovde dodajes toolbar kad napravis, pre toga ga moras inicijalizovati!!!
+
         this.setLayout(new BorderLayout());
         this.add(new JScrollPane(jTable), BorderLayout.SOUTH);
-        textArea = new JTextArea();
         this.add(textArea, BorderLayout.CENTER);
-        //proba
-        //proba2
+        this.add(right, BorderLayout.EAST);
+        this.add(toolbarPanel, BorderLayout.NORTH);
+
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -71,9 +82,9 @@ public class MainFrame extends JFrame implements Subscriber {
         jTree = new JTree(defaultTreeModel);
         jTree.addTreeSelectionListener(new SelectionListener());
         jsp = new JScrollPane(jTree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-        panel = new JPanel(new BorderLayout());
-        panel.add(jsp, BorderLayout.CENTER);
-        this.add(panel, BorderLayout.WEST);
+        treePanel = new JPanel(new BorderLayout());
+        treePanel.add(jsp, BorderLayout.CENTER);
+        this.add(treePanel, BorderLayout.WEST);
         pack();
     }
 
