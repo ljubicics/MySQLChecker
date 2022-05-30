@@ -2,6 +2,7 @@ package gui;
 
 import app.AppCore;
 import app.Main;
+import controller.ActionManager;
 import lombok.Data;
 import observer.Notification;
 import observer.Subscriber;
@@ -20,7 +21,6 @@ import java.util.Vector;
 public class MainFrame extends JFrame implements Subscriber {
 
     private static MainFrame instance = null;
-
     private AppCore appCore;
     private JTable jTable;
     private JScrollPane jsp;
@@ -30,6 +30,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private JPanel toolbarPanel;
     private JTextArea textArea;
     private JToolBar toolBar;
+    private ActionManager actionManager;
     private MainFrame() {
 
     }
@@ -45,6 +46,8 @@ public class MainFrame extends JFrame implements Subscriber {
 
     private void initialise() {
 
+        this.actionManager = new ActionManager();
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setPreferredSize(new Dimension(800, 500));
 
@@ -52,7 +55,7 @@ public class MainFrame extends JFrame implements Subscriber {
         right = new JPanel();
         textArea = new JTextArea();
         toolbarPanel = new JPanel();
-        toolBar=new JToolBar();
+        toolBar = new ToolBar();
 
         jTable.setPreferredScrollableViewportSize(new Dimension(100, 200));
         jTable.setFillsViewportHeight(true);
@@ -60,17 +63,16 @@ public class MainFrame extends JFrame implements Subscriber {
         toolbarPanel.setPreferredSize(new Dimension(100, 40));
         toolbarPanel.add(toolBar);   // Ovde dodajes toolbar kad napravis, pre toga ga moras inicijalizovati!!!
 
+
         //dodavanje buttona u toolbar
-        JButton buttonImport=new JButton("import");
+        /*JButton buttonImport=new JButton("import");
         JButton buttonExport=new JButton("export");
         JButton buttonPretty=new JButton("pretty");
         JButton buttonRun=new JButton("run");
         toolBar.add(buttonImport);
         toolBar.add(buttonExport);
         toolBar.add(buttonPretty);
-        toolBar.add(buttonRun);
-
-
+        toolBar.add(buttonRun);*/
 
         this.setLayout(new BorderLayout());
         this.add(new JScrollPane(jTable), BorderLayout.SOUTH);
