@@ -20,7 +20,7 @@ public class PrettyAction extends AbstractDBAction{
         String text = MainFrame.getInstance().getTextArea().getText();
         String[] reci = text.split(" ");
         boolean flag = false;
-        File file = new File("src\\main\\libraries\\reserved_words.txt");
+        File file = new File("src/main/libraries/reserved_words.txt");
         BufferedReader bufferedReader;
         try {
             bufferedReader = new BufferedReader(new FileReader(file));
