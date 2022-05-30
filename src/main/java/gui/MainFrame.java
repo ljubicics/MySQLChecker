@@ -61,14 +61,14 @@ public class MainFrame extends JFrame implements Subscriber {
         toolbarPanel.add(toolBar);   // Ovde dodajes toolbar kad napravis, pre toga ga moras inicijalizovati!!!
 
         //dodavanje buttona u toolbar
-        JButton button1=new JButton("import");
-        JButton button2=new JButton("export");
-        JButton button3=new JButton("pretty");
-        JButton button4=new JButton("run");
-        toolBar.add(button1);
-        toolBar.add(button2);
-        toolBar.add(button3);
-        toolBar.add(button4);
+        JButton buttonImport=new JButton("import");
+        JButton buttonExport=new JButton("export");
+        JButton buttonPretty=new JButton("pretty");
+        JButton buttonRun=new JButton("run");
+        toolBar.add(buttonImport);
+        toolBar.add(buttonExport);
+        toolBar.add(buttonPretty);
+        toolBar.add(buttonRun);
 
 
 
