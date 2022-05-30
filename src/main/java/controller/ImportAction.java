@@ -8,7 +8,7 @@ public class ImportAction extends AbstractDBAction{
 
     public ImportAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F5, ActionEvent.CTRL_MASK));
-        putValue(SMALL_ICON, loadIcon("//"));
+        putValue(SMALL_ICON, new ImageIcon("src/main/java/controller/icons/import.png"));
         putValue(NAME, "Import");
         putValue(SHORT_DESCRIPTION, "Import");
     }

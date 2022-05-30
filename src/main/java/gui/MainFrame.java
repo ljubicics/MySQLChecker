@@ -56,11 +56,10 @@ public class MainFrame extends JFrame implements Subscriber {
         textArea = new JTextArea();
         toolbarPanel = new JPanel();
         toolBar = new ToolBar();
-
         jTable.setPreferredScrollableViewportSize(new Dimension(100, 200));
         jTable.setFillsViewportHeight(true);
         right.setPreferredSize(new Dimension(100, 100));
-        toolbarPanel.setPreferredSize(new Dimension(100, 40));
+        toolbarPanel.setPreferredSize(new Dimension(100, 50));
         toolbarPanel.add(toolBar);   // Ovde dodajes toolbar kad napravis, pre toga ga moras inicijalizovati!!!
 
 

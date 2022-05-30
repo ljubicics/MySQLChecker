@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 public class ExportAction extends AbstractDBAction {
     public ExportAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F5, ActionEvent.CTRL_MASK));
-        putValue(SMALL_ICON, loadIcon("//"));
+        putValue(SMALL_ICON, new ImageIcon("src/main/java/controller/icons/export.png"));
         putValue(NAME, "Export");
         putValue(SHORT_DESCRIPTION, "Export");
     }

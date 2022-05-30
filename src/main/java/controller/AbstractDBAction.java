@@ -1,14 +1,14 @@
 package controller;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.net.URL;
 
-public abstract class AbstractDBAction extends AbstractAction{
-
-    public ImageIcon loadIcon(String fileName) {
+public abstract class AbstractDBAction  extends AbstractAction {
+    public Icon loadIcon(String fileName) {
 
         URL imageURL = getClass().getResource(fileName);
-        ImageIcon icon = null;
+        Icon icon = null;
 
         if(imageURL != null) {
             icon = new ImageIcon(imageURL);

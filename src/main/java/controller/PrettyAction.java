@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 public class PrettyAction extends AbstractDBAction{
     public PrettyAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F5, ActionEvent.CTRL_MASK));
-        putValue(SMALL_ICON, loadIcon("//"));
+        putValue(SMALL_ICON, new ImageIcon("src/main/java/controller/icons/pretty.png"));
         putValue(NAME, "Pretty");
         putValue(SHORT_DESCRIPTION, "Pretty");
     }
