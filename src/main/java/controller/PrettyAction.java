@@ -29,12 +29,16 @@ public class PrettyAction extends AbstractDBAction{
         String finalText = "";
         try {
             String text = styledDocument.getText(0, styledDocument.getLength());
-            String[] reci = text.split(" ");
+            System.out.println(text);
+            String[] reci = text.split("[ \n]");
             textPane.setText("");
             Style blueStyle = textPane.addStyle("plavi", null);
             Style blackStyle = textPane.addStyle("crni", null);
             for (int i = 0; i < reci.length; i++) {
+                if(reci[i] == "\n")
+                    continue;
                 if (KeywordsLoader.getInstance().getKeywordsList().contains(reci[i].toUpperCase())) {
+                    System.out.println(reci[i]);
                    StyleConstants.setForeground(blueStyle, Color.BLUE);
                     if (finalText == "") {
                         styledDocument.insertString(styledDocument.getLength(), reci[i].toUpperCase() + " ", blueStyle);
@@ -42,7 +46,7 @@ public class PrettyAction extends AbstractDBAction{
                     } else {
                         styledDocument.insertString(styledDocument.getLength(), "\n", blueStyle);
                         styledDocument.insertString(styledDocument.getLength(), reci[i].toUpperCase() + " ", blueStyle);
-                        finalText += "\n";
+                        finalText += "\n" + " ";
                         finalText += reci[i].toUpperCase() + " ";
                     }
                 } else {
