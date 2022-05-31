@@ -1,9 +1,14 @@
 package controller;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+@Getter
+@Setter
 public class ImportAction extends AbstractDBAction{
 
     public ImportAction() {

@@ -1,5 +1,6 @@
 package app;
 
+import controller.KeywordsLoader;
 import gui.MainFrame;
 import resource.data.Row;
 
@@ -12,6 +13,7 @@ public class Main {
         AppCore appCore = new AppCore();
         MainFrame mainFrame = MainFrame.getInstance();
         mainFrame.setAppCore(appCore);
+        KeywordsLoader.getInstance();
         // komentar proba
     }
 

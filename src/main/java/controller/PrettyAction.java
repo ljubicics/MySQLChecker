@@ -20,37 +20,22 @@ public class PrettyAction extends AbstractDBAction{
     public void actionPerformed(ActionEvent e) {
         String text = MainFrame.getInstance().getTextArea().getText();
         String[] reci = text.split(" ");
-        File file = new File("src/main/libraries/reserved_words.txt");
-        BufferedReader bufferedReader;
-        try {
-            bufferedReader = new BufferedReader(new FileReader(file));
-            ArrayList<String> keywordsList = new ArrayList<String>();
-            String line;
-            while ((line = bufferedReader.readLine()) !=null){
-                keywordsList.add(line);
-            }
-            bufferedReader.close();
+        String finalText = "";
 
-            String finalText ="";
-            for (int i = 0; i < reci.length; i++) {
-                    if (keywordsList.contains(reci[i].toUpperCase())) {
-                        if (finalText == "") {
-                            finalText += reci[i].toUpperCase() + " ";
-                        } else {
-                            finalText += "\n";
-                            finalText += reci[i].toUpperCase() + " ";
-                        }
-                    }
-                  else {
-                        finalText += reci[i] + " ";
-                    }
+        for (int i = 0; i < reci.length; i++) {
+            if (KeywordsLoader.getInstance().getKeywordsList().contains(reci[i].toUpperCase())) {
+                if (finalText == "") {
+                    finalText += reci[i].toUpperCase() + " ";
+                } else {
+                    finalText += "\n";
+                    finalText += reci[i].toUpperCase() + " ";
+                }
             }
-            MainFrame.getInstance().getTextArea().setText(finalText);
-        } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            else {
+                finalText += reci[i] + " ";
+            }
         }
 
+        MainFrame.getInstance().getTextArea().setText(finalText);
     }
 }
