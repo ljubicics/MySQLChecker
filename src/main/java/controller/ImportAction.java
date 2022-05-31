@@ -1,11 +1,13 @@
 package controller;
 
+import gui.MainFrame;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 @Getter
 @Setter
@@ -20,7 +22,15 @@ public class ImportAction extends AbstractDBAction{
 
 
     public void actionPerformed(ActionEvent e) {
-        System.out.println("CAOCAOCAOCAO");
+        String selected = MainFrame.getInstance().getJTree().getLastSelectedPathComponent().toString();
+        JFileChooser jFileChooser = new JFileChooser();
+        if(jFileChooser.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION){
+          //  String file = JFileChooser.get
+
+        }
+
+
+
     }
 
 }
