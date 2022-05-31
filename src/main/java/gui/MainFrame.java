@@ -28,7 +28,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private JPanel treePanel;
     private JPanel right;
     private JPanel toolbarPanel;
-    private JTextArea textArea;
+    private JTextPane textPane;
     private JToolBar toolBar;
     private ActionManager actionManager;
     private MainFrame() {
@@ -53,7 +53,7 @@ public class MainFrame extends JFrame implements Subscriber {
 
         jTable = new JTable();
         right = new JPanel();
-        textArea = new JTextArea();
+        textPane = new JTextPane();
         toolbarPanel = new JPanel();
         toolBar = new ToolBar();
         jTable.setPreferredScrollableViewportSize(new Dimension(100, 200));
@@ -64,7 +64,7 @@ public class MainFrame extends JFrame implements Subscriber {
 
         this.setLayout(new BorderLayout());
         this.add(new JScrollPane(jTable), BorderLayout.SOUTH);
-        this.add(textArea, BorderLayout.CENTER);
+        this.add(textPane, BorderLayout.CENTER);
         this.add(right, BorderLayout.EAST);
         this.add(toolbarPanel, BorderLayout.NORTH);
 

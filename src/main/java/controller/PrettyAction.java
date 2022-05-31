@@ -3,6 +3,11 @@ package controller;
 import gui.MainFrame;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.*;
@@ -18,24 +23,38 @@ public class PrettyAction extends AbstractDBAction{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        String text = MainFrame.getInstance().getTextArea().getText();
-        String[] reci = text.split(" ");
-        String finalText = "";
 
-        for (int i = 0; i < reci.length; i++) {
-            if (KeywordsLoader.getInstance().getKeywordsList().contains(reci[i].toUpperCase())) {
-                if (finalText == "") {
-                    finalText += reci[i].toUpperCase() + " ";
+        JTextPane textPane = MainFrame.getInstance().getTextPane();
+        StyledDocument styledDocument = textPane.getStyledDocument();
+        String finalText = "";
+        try {
+            String text = styledDocument.getText(0, styledDocument.getLength());
+            String[] reci = text.split(" ");
+            textPane.setText("");
+            Style blueStyle = textPane.addStyle("plavi", null);
+            Style blackStyle = textPane.addStyle("crni", null);
+            for (int i = 0; i < reci.length; i++) {
+                if (KeywordsLoader.getInstance().getKeywordsList().contains(reci[i].toUpperCase())) {
+                   StyleConstants.setForeground(blueStyle, Color.BLUE);
+                    if (finalText == "") {
+                        styledDocument.insertString(styledDocument.getLength(), reci[i].toUpperCase() + " ", blueStyle);
+                        finalText += reci[i].toUpperCase() + " ";
+                    } else {
+                        styledDocument.insertString(styledDocument.getLength(), "\n", blueStyle);
+                        styledDocument.insertString(styledDocument.getLength(), reci[i].toUpperCase() + " ", blueStyle);
+                        finalText += "\n";
+                        finalText += reci[i].toUpperCase() + " ";
+                    }
                 } else {
-                    finalText += "\n";
-                    finalText += reci[i].toUpperCase() + " ";
+                    StyleConstants.setForeground(blackStyle, Color.black);
+                    styledDocument.insertString(styledDocument.getLength(), reci[i] + " ", blackStyle);
+                    finalText += reci[i] + " ";
                 }
             }
-            else {
-                finalText += reci[i] + " ";
-            }
+            textPane.revalidate();
+            textPane.repaint();
+        } catch (BadLocationException ex) {
+            throw new RuntimeException(ex);
         }
-
-        MainFrame.getInstance().getTextArea().setText(finalText);
     }
 }
