@@ -1,5 +1,11 @@
 package controller;
 
+import app.AppCore;
+import app.Main;
+import database.DatabaseImplementation;
+import database.MYSQLrepository;
+import gui.MainFrame;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -13,6 +19,10 @@ public class ExportAction extends AbstractDBAction {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        String selected = MainFrame.getInstance().getJTree().getLastSelectedPathComponent().toString();
+        AppCore appCore = MainFrame.getInstance().getAppCore();
+        DatabaseImplementation database = (DatabaseImplementation) appCore.getDatabase();
+        MYSQLrepository mysqLrepository = (MYSQLrepository) database.getRepository();
+        mysqLrepository.resultSetExport(selected);
     }
 }

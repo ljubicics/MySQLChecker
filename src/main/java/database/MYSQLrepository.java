@@ -1,5 +1,6 @@
 package database;
 
+import com.opencsv.CSVWriter;
 import database.settings.Settings;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +12,7 @@ import resource.implementation.Entity;
 import resource.implementation.InformationResource;
 
 import javax.swing.plaf.nimbus.State;
+import java.io.FileWriter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -207,6 +209,34 @@ public class MYSQLrepository implements Repository{
                 }
                 preparedStatement.executeUpdate();
                System.out.println("USPEO INSERTTTT");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.closeConnection();
+        }
+    }
+    public void resultSetExport(String selected) {
+        try {
+            this.initConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from " + selected);
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
+            int columnCount = resultSetMetaData.getColumnCount();
+
+            List<String[]> list = new ArrayList<>();
+
+            int br = 0;
+            while(resultSet.next()) {
+                String row = "";
+                for(int i = 1; i < columnCount + 1; i++)  {
+                    row += resultSet.getString(i) + ",";
+                }
+                list.add(row.split(","));
+            }
+            try (CSVWriter writer = new CSVWriter(new FileWriter("src/test.csv"))) {
+                writer.writeAll(list);
             }
         } catch (Exception e) {
             e.printStackTrace();
