@@ -1,6 +1,12 @@
 package controller;
 
+
+import app.AppCore;
 import com.opencsv.CSVReader;
+import database.Database;
+import database.DatabaseImplementation;
+import database.MYSQLrepository;
+import database.Repository;
 import gui.MainFrame;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileReader;
+import java.sql.Statement;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,11 +39,14 @@ public class ImportAction extends AbstractDBAction{
                 File file = jfileChooser.getSelectedFile();
 
                 CSVReader reader = new CSVReader(new FileReader(file));
-                String[] line;
+                List<String[]> csvFajl = reader.readAll();
 
-                while((line = reader.readNext()) != null) {
+                AppCore appCore = MainFrame.getInstance().getAppCore();
+                DatabaseImplementation database = (DatabaseImplementation) appCore.getDatabase();
+                MYSQLrepository mysqLrepository = (MYSQLrepository) database.getRepository();
 
-                }
+                mysqLrepository.bulkImport(csvFajl, selected);
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

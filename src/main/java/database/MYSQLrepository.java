@@ -163,4 +163,55 @@ public class MYSQLrepository implements Repository{
 
         return rows;
     }
+
+    public void bulkImport(List<String[]> list, String selected) {
+        try {
+            this.initConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from " + selected);
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int count = resultSetMetaData.getColumnCount();
+            String valueStr = "";
+
+            for(int i = 0; i < count - 1; i++) {
+                valueStr += "?,";
+            }
+            valueStr += "?";
+
+            System.out.println(valueStr);
+            int INT = 4;
+            int DECIMAL = 3;
+            int DATE = 91;
+            int VARCHAR = 12;
+
+            for(int i = 0; i < list.size(); i++) {
+                String query = "INSERT INTO " + selected + " VALUES(" + valueStr + ")";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                String[] line = list.get(i);
+                for(int j = 0; j < line.length; j++) {
+                    if(resultSetMetaData.getColumnType(j + 1) == DECIMAL) {
+                        preparedStatement.setFloat(j + 1, Float.parseFloat(line[j]));
+                        continue;
+                    } else if(resultSetMetaData.getColumnType(j + 1) == INT) {
+                        preparedStatement.setInt(j + 1, Integer.parseInt(line[j]));
+                        continue;
+                    } else if(resultSetMetaData.getColumnType(j + 1) == DATE) {
+                        preparedStatement.setDate(j + 1, Date.valueOf(line[j]));
+                        continue;
+                    } else if(resultSetMetaData.getColumnType(j + 1) == VARCHAR) {
+                        preparedStatement.setString(j + 1, line[j].toString());
+                        continue;
+                    } else {
+                        preparedStatement.setString(j + 1, line[j]);
+                    }
+                }
+                preparedStatement.executeUpdate();
+               System.out.println("USPEO INSERTTTT");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.closeConnection();
+        }
+    }
 }
