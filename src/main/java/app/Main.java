@@ -1,5 +1,6 @@
 package app;
 
+import checker.MapaVaznostLoader;
 import controller.KeywordsLoader;
 import gui.MainFrame;
 import resource.data.Row;
@@ -14,6 +15,7 @@ public class Main {
         MainFrame mainFrame = MainFrame.getInstance();
         mainFrame.setAppCore(appCore);
         KeywordsLoader.getInstance();
+        MapaVaznostLoader.getInstance();
         // komentar proba
     }
 

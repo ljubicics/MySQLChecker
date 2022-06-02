@@ -20,6 +20,7 @@ public class RunAction extends AbstractDBAction{
         String query = MainFrame.getInstance().getTextPane().getText();
         AppCore appCore = MainFrame.getInstance().getAppCore();
         Checker checker = appCore.getChecker();
-        checker.check(query);
+        String mistake = checker.check(query);
+        System.out.println(mistake);
     }
 }
