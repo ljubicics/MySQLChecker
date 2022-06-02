@@ -44,10 +44,17 @@ public class PrettyAction extends AbstractDBAction{
                         styledDocument.insertString(styledDocument.getLength(), reci[i].toUpperCase() + " ", blueStyle);
                         finalText += reci[i].toUpperCase() + " ";
                     } else {
-                        styledDocument.insertString(styledDocument.getLength(), "\n", blueStyle);
-                        styledDocument.insertString(styledDocument.getLength(), reci[i].toUpperCase() + " ", blueStyle);
-                        finalText += "\n" + " ";
-                        finalText += reci[i].toUpperCase() + " ";
+                        //styledDocument.insertString(styledDocument.getLength(), "\n", blueStyle);
+                        //styledDocument.insertString(styledDocument.getLength(), reci[i].toUpperCase() + " ", blueStyle);
+                        if(KeywordsLoader.getInstance().getKeywordsList().contains(reci[i - 1].toUpperCase())) {
+                            finalText += reci[i].toUpperCase() + " ";
+                            styledDocument.insertString(styledDocument.getLength(), reci[i].toUpperCase() + " ", blueStyle);
+                        } else {
+                            styledDocument.insertString(styledDocument.getLength(), "\n", blueStyle);
+                            styledDocument.insertString(styledDocument.getLength(), reci[i].toUpperCase() + " ", blueStyle);
+                            finalText += "\n" + " ";
+                            finalText += reci[i].toUpperCase() + " ";
+                        }
                     }
                 } else {
                     StyleConstants.setForeground(blackStyle, Color.black);

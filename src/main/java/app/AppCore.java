@@ -1,5 +1,6 @@
 package app;
 
+import checker.Checker;
 import database.Database;
 import database.DatabaseImplementation;
 import database.MYSQLrepository;
@@ -27,13 +28,14 @@ public class AppCore extends PublisherImplementation {
     private TableModel tableModel;
     private DefaultTreeModel defaultTreeModel;
     private Tree tree;
+    private Checker checker;
 
     public AppCore() {
         this.settings = initSettings();
         this.database = new DatabaseImplementation(new MYSQLrepository(this.settings));
         this.tableModel = new TableModel();
         this.tree = new TreeImplementation();
-
+        this.checker = new Checker();
     }
 
     private Settings initSettings() {
