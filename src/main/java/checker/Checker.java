@@ -1,6 +1,7 @@
 package checker;
 
 import checker.rules.PriorityRule;
+import checker.rules.WhereRule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +15,13 @@ public class Checker implements Rule{
 
     public Checker() {
         rules.add(new PriorityRule());
+        rules.add(new WhereRule());
     }
 
     @Override
     public String check(String query) {
 
-        String str = rules.get(0).check(query);
+        String str = rules.get(1).check(query);
         return str;
     }
 }
