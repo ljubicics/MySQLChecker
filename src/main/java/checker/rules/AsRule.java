@@ -22,12 +22,12 @@ public class AsRule implements Rule {
                    continue;
                } else {
                    if(reci[i].indexOf('"') == 0) {
-                       int br = i;
+                      int br = i;
                        while(true) {
                            br++;
-                           if((reci[br].indexOf('"') == reci[br].length()-2  && reci[br].indexOf(',') == reci[br].length()-1) ||
-                                   (reci[br].indexOf('"') == reci[br].length()-2 && KeywordsLoader.getInstance().getKeywordsList().contains(reci[br + 1].toUpperCase()))){
+                           if((reci[br].indexOf('"') == reci[br].length()-2  && reci[br].indexOf(',') == reci[br].length()-1) || (reci[br].indexOf('"') == reci[br].length() - 1 && KeywordsLoader.getInstance().getKeywordsList().contains(reci[br + 1].toUpperCase()))){
                                fleg = false;
+                               //System.out.println(fleg);
                                break;
                            } else {
                                if(KeywordsLoader.getInstance().getKeywordsList().contains(reci[br + 1].toUpperCase()) || reci[br].indexOf(',') == reci[br].length()-1) {
