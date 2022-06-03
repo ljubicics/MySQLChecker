@@ -10,4 +10,6 @@ public interface Repository {
     DBNode getSchema();
 
     List<Row> get(String from);
+
+    List<Row> runQuery(String query);
 }

@@ -23,4 +23,8 @@ public class DatabaseImplementation implements Database {
     public List<Row> readDataFromTable(String tableName) {
         return repository.get(tableName);
     }
+
+    public List<Row> readDataForQuery(String query) {
+        return repository.runQuery(query);
+    }
 }

@@ -166,6 +166,38 @@ public class MYSQLrepository implements Repository{
         return rows;
     }
 
+    public List<Row> runQuery(String query) {
+        List<Row> rows = new ArrayList<>();
+
+        try{
+            this.initConnection();
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = rs.getMetaData();
+            String name = resultSetMetaData.getColumnName(1);
+
+            while (rs.next()){
+                Row row = new Row();
+                row.setName(name);
+
+                for (int i = 1; i<=resultSetMetaData.getColumnCount(); i++){
+                    row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+                }
+                rows.add(row);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            this.closeConnection();
+        }
+
+        return rows;
+    }
+
     public void bulkImport(List<String[]> list, String selected) {
         try {
             this.initConnection();

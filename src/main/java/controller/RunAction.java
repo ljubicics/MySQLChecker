@@ -2,7 +2,9 @@ package controller;
 
 import app.AppCore;
 import checker.Checker;
+import database.DatabaseImplementation;
 import gui.MainFrame;
+import gui.table.TableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,8 +21,13 @@ public class RunAction extends AbstractDBAction{
     public void actionPerformed(ActionEvent e) {
         String query = MainFrame.getInstance().getTextPane().getText();
         AppCore appCore = MainFrame.getInstance().getAppCore();
+        DatabaseImplementation database = (DatabaseImplementation) appCore.getDatabase();
         Checker checker = appCore.getChecker();
         String mistake = checker.check(query);
+
+        TableModel tableModel = appCore.getTableModel();
+        tableModel.setRows(database.readDataForQuery(query));
+
         System.out.println(mistake);
     }
 }
