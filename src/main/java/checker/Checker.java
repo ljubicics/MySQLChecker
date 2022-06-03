@@ -1,5 +1,6 @@
 package checker;
 
+import checker.rules.AsRule;
 import checker.rules.PriorityRule;
 import checker.rules.WhereRule;
 
@@ -16,12 +17,13 @@ public class Checker implements Rule{
     public Checker() {
         rules.add(new PriorityRule());
         rules.add(new WhereRule());
+        rules.add(new AsRule());
     }
 
     @Override
     public String check(String query) {
 
-        String str = rules.get(1).check(query);
+        String str = rules.get(2).check(query);
         return str;
     }
 }
