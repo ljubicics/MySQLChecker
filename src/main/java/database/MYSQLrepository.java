@@ -166,26 +166,66 @@ public class MYSQLrepository implements Repository{
         return rows;
     }
 
+    public void iterateThroughTable(ResultSet rs,ResultSetMetaData resultSetMetaData, String name, List<Row> rows) throws SQLException {
+
+        while (rs.next()) {
+            Row row1 = new Row();
+            row1.setName(name);
+
+            for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+                row1.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+            }
+            rows.add(row1);
+        }
+    }
+
     public List<Row> runQuery(String query) {
         List<Row> rows = new ArrayList<>();
+        String[] reci = query.split(" ");
 
-        try{
+        try {
             this.initConnection();
 
+            if (reci[0].equalsIgnoreCase("delete")) {
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.executeUpdate(query);
 
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
-            ResultSetMetaData resultSetMetaData = rs.getMetaData();
-            String name = resultSetMetaData.getColumnName(1);
+                String query2 = "SELECT * FROM " + reci[2];
 
-            while (rs.next()){
-                Row row = new Row();
-                row.setName(name);
+                ResultSet rs = statement.executeQuery(query2);
+                ResultSetMetaData resultSetMetaData = rs.getMetaData();
 
-                for (int i = 1; i<=resultSetMetaData.getColumnCount(); i++){
-                    row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
-                }
-                rows.add(row);
+                this.iterateThroughTable(rs, resultSetMetaData, reci[2], rows);
+
+            } else if(reci[0].equalsIgnoreCase("insert")) {
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.executeUpdate(query);
+
+                String query2 = "SELECT * FROM " + reci[2];
+
+                ResultSet rs = preparedStatement.executeQuery(query2);
+                ResultSetMetaData resultSetMetaData = rs.getMetaData();
+
+                this.iterateThroughTable(rs, resultSetMetaData, reci[2], rows);
+
+            } else if(reci[0].equalsIgnoreCase("update")) {
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.executeUpdate(query);
+
+                String query2 = "SELECT * FROM " + reci[1];
+
+                ResultSet rs = preparedStatement.executeQuery(query2);
+                ResultSetMetaData resultSetMetaData = rs.getMetaData();
+
+                this.iterateThroughTable(rs, resultSetMetaData, reci[1], rows);
+            } else {
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                ResultSet rs = preparedStatement.executeQuery();
+                ResultSetMetaData resultSetMetaData = rs.getMetaData();
+                String name = resultSetMetaData.getColumnName(1);
+
+                this.iterateThroughTable(rs, resultSetMetaData, name, rows);
+
             }
         }
         catch (Exception e) {
