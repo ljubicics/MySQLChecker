@@ -40,7 +40,8 @@ public class GroupByRule implements Rule {
                     }
                 }
             }
+            return "QUERY NEMA GROUP BY";
         }
-        return "QUERY NEMA GROUP BY";
+        return "null";
     }
 }

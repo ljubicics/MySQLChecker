@@ -10,6 +10,7 @@ import database.DatabaseImplementation;
 import database.MYSQLrepository;
 import database.Repository;
 import gui.MainFrame;
+import gui.table.TableModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,17 +53,27 @@ public class ImportAction extends AbstractDBAction{
                 String[] firstLine = csvFajl.get(0);
                 String columns = "";
                 for(int i = 0; i < size - 1; i++) {
-                    columns += firstLine[i];
+                    columns += firstLine[i] + " ";
                 }
                 columns += firstLine[size - 1];
 
-                csvFileRule.check(columns);
+                String res = csvFileRule.check(columns);
 
-                DatabaseImplementation database = (DatabaseImplementation) appCore.getDatabase();
-                MYSQLrepository mysqLrepository = (MYSQLrepository) database.getRepository();
+                if(!(res == "null")) {
+                    System.out.println(res);
+                } else {
 
-                mysqLrepository.bulkImport(csvFajl, selected);
+                    DatabaseImplementation database = (DatabaseImplementation) appCore.getDatabase();
+                    MYSQLrepository mysqLrepository = (MYSQLrepository) database.getRepository();
 
+                    mysqLrepository.bulkImport(csvFajl, selected);
+
+                    TableModel tableModel = appCore.getTableModel();
+
+                    String query = "SELECT * FROM " + selected;
+
+                    tableModel.setRows(database.readDataForQuery(query));
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

@@ -238,6 +238,29 @@ public class MYSQLrepository implements Repository{
         return rows;
     }
 
+    public String[] bulkImportChecker(String query) {
+        try {
+            this.initConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
+            int columnCount = resultSetMetaData.getColumnCount();
+            String[] columns = new String[100];
+            for(int i = 1; i <= columnCount; i++) {
+                columns[i - 1] = resultSetMetaData.getColumnName(i);
+            }
+
+            return columns;
+
+        }  catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.closeConnection();
+        }
+        return null;
+    }
+
     public void bulkImport(List<String[]> list, String selected) {
         try {
             this.initConnection();
