@@ -2,6 +2,8 @@ package controller;
 
 
 import app.AppCore;
+import checker.Checker;
+import checker.rules.CSVFileRule;
 import com.opencsv.CSVReader;
 import database.Database;
 import database.DatabaseImplementation;
@@ -34,12 +36,23 @@ public class ImportAction extends AbstractDBAction{
     public void actionPerformed(ActionEvent e) {
         String selected = MainFrame.getInstance().getJTree().getLastSelectedPathComponent().toString();
         JFileChooser jfileChooser = new JFileChooser();
+
         if(jfileChooser.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION){
             try {
                 File file = jfileChooser.getSelectedFile();
 
                 CSVReader reader = new CSVReader(new FileReader(file));
                 List<String[]> csvFajl = reader.readAll();
+
+                int size = csvFajl.get(0).length;
+                String[] firstLine = csvFajl.get(0);
+                String columns = "";
+                for(int i = 0; i < size - 1; i++) {
+                    columns += firstLine[i];
+                }
+                columns += firstLine[size - 1];
+
+                String importQueryCheck = "SELECT " + columns + " FROM " + selected;
 
                 AppCore appCore = MainFrame.getInstance().getAppCore();
                 DatabaseImplementation database = (DatabaseImplementation) appCore.getDatabase();

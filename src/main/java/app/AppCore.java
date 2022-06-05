@@ -6,6 +6,7 @@ import database.DatabaseImplementation;
 import database.MYSQLrepository;
 import database.settings.Settings;
 import database.settings.SettingsImplementation;
+import gui.MainFrame;
 import gui.table.TableModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -62,6 +63,17 @@ public class AppCore extends PublisherImplementation {
     }
 
 
+    public void run() {
+        String query = MainFrame.getInstance().getTextPane().getText();
 
+        String mistake = checker.check(query);
+        DatabaseImplementation databaseImplementation = (DatabaseImplementation) database;
+
+        if(mistake != "null") {
+            System.out.println(mistake);
+        } else {
+            this.tableModel.setRows(databaseImplementation.readDataForQuery(query));
+        }
+    }
 
 }

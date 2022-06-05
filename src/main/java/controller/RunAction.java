@@ -19,15 +19,6 @@ public class RunAction extends AbstractDBAction{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        String query = MainFrame.getInstance().getTextPane().getText();
-        AppCore appCore = MainFrame.getInstance().getAppCore();
-        DatabaseImplementation database = (DatabaseImplementation) appCore.getDatabase();
-        Checker checker = appCore.getChecker();
-        String mistake = checker.check(query);
-
-        TableModel tableModel = appCore.getTableModel();
-        tableModel.setRows(database.readDataForQuery(query));
-
-        System.out.println(mistake);
+       MainFrame.getInstance().getAppCore().run();
     }
 }

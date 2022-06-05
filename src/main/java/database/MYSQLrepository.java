@@ -258,7 +258,7 @@ public class MYSQLrepository implements Repository{
             int DATE = 91;
             int VARCHAR = 12;
 
-            for(int i = 0; i < list.size(); i++) {
+            for(int i = 1; i < list.size(); i++) {
                 String query = "INSERT INTO " + selected + " VALUES(" + valueStr + ")";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 String[] line = list.get(i);
@@ -299,7 +299,6 @@ public class MYSQLrepository implements Repository{
 
             List<String[]> list = new ArrayList<>();
 
-            int br = 0;
             while(resultSet.next()) {
                 String row = "";
                 for(int i = 1; i < columnCount + 1; i++)  {

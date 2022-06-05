@@ -1,8 +1,6 @@
 package checker;
 
-import checker.rules.AsRule;
-import checker.rules.PriorityRule;
-import checker.rules.WhereRule;
+import checker.rules.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +16,14 @@ public class Checker implements Rule{
         rules.add(new PriorityRule());
         rules.add(new WhereRule());
         rules.add(new AsRule());
+        rules.add(new RequiredWordRule());
+        rules.add(new GroupByRule());
     }
 
     @Override
     public String check(String query) {
 
-        String str = rules.get(2).check(query);
+        String str = rules.get(4).check(query);
         return str;
     }
 }
