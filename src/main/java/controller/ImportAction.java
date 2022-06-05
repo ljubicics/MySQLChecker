@@ -44,6 +44,10 @@ public class ImportAction extends AbstractDBAction{
                 CSVReader reader = new CSVReader(new FileReader(file));
                 List<String[]> csvFajl = reader.readAll();
 
+                AppCore appCore = MainFrame.getInstance().getAppCore();
+                Checker checker = appCore.getChecker();
+                CSVFileRule csvFileRule = checker.getCsvFileRule();
+
                 int size = csvFajl.get(0).length;
                 String[] firstLine = csvFajl.get(0);
                 String columns = "";
@@ -52,9 +56,8 @@ public class ImportAction extends AbstractDBAction{
                 }
                 columns += firstLine[size - 1];
 
-                String importQueryCheck = "SELECT " + columns + " FROM " + selected;
+                csvFileRule.check(columns);
 
-                AppCore appCore = MainFrame.getInstance().getAppCore();
                 DatabaseImplementation database = (DatabaseImplementation) appCore.getDatabase();
                 MYSQLrepository mysqLrepository = (MYSQLrepository) database.getRepository();
 

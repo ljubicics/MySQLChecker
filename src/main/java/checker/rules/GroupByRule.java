@@ -11,11 +11,14 @@ public class GroupByRule implements Rule {
         if(reci[0].equalsIgnoreCase("select")) {
             int br = 0;
             for(int i = 1; i < reci.length; i++) {
-                if(!KeywordsLoader.getInstance().getKeywordsList().contains(reci[i])) {
+                if(!KeywordsLoader.getInstance().getKeywordsList().contains(reci[i].toUpperCase())) {
                     br++;
+                } else {
+                    break;
                 }
             }
 
+            System.out.println(br);
             boolean flag = false;
             if(br >= 2) {
                 for(int i = 1; i <= br; i++) {
@@ -23,6 +26,8 @@ public class GroupByRule implements Rule {
                         flag = true;
                     }
                 }
+            } else {
+                return "null";
             }
 
             if(flag == true) {
