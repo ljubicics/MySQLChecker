@@ -30,6 +30,7 @@ public class GroupByRule implements Rule {
                 return "null";
             }
 
+            System.out.println(flag);
             if(flag == true) {
                 for(int i = 0; i < reci.length; i++) {
                     if(reci[i].equalsIgnoreCase("group")) {
@@ -39,6 +40,8 @@ public class GroupByRule implements Rule {
                         }
                     }
                 }
+            } else {
+                return "null";
             }
             return "QUERY NEMA GROUP BY";
         }
