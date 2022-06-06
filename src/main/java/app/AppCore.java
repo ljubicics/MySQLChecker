@@ -13,12 +13,17 @@ import lombok.Setter;
 import observer.Notification;
 import observer.enums.NotificationCode;
 import observer.implementation.PublisherImplementation;
+import org.json.simple.JSONObject;
 import resource.implementation.InformationResource;
 import tree.Tree;
 import tree.implementation.TreeImplementation;
 import utils.Constants;
 
+import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Stack;
 
 @Getter
 @Setter
@@ -64,13 +69,18 @@ public class AppCore extends PublisherImplementation {
 
 
     public void run() {
-        String query = MainFrame.getInstance().getTextPane().getText();
+        String query = MainFrame.getInstance().getTextPane().getText().replaceAll("\\r|\\n", "");
+        System.out.println(query);
 
-        String mistake = checker.check(query);
+        Stack<String> mistake = checker.check(query);
         DatabaseImplementation databaseImplementation = (DatabaseImplementation) database;
 
-        if(mistake != "null") {
-            System.out.println(mistake);
+        if(!mistake.isEmpty()) {
+            ArrayList<JSONObject> jsonObjects = checker.getDescriptorRepository().read(mistake);
+
+            for(JSONObject j : jsonObjects) {
+                JOptionPane.showMessageDialog(null,j.get("desc").toString() + "\n" + j.get("sugg").toString() + "\n" + j.get("name").toString());
+            }
         } else {
             this.tableModel.setRows(databaseImplementation.readDataForQuery(query));
         }

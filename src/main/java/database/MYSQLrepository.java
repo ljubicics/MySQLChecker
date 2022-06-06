@@ -2,6 +2,7 @@ package database;
 
 import com.opencsv.CSVWriter;
 import database.settings.Settings;
+import gui.MainFrame;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import resource.DBNode;
@@ -337,5 +338,81 @@ public class MYSQLrepository implements Repository{
         } finally {
             this.closeConnection();
         }
+    }
+
+    public ArrayList<String> foreignKeyList(String table) {
+        String foreignKeyColumn = "";
+        ArrayList<String> foreignKeys = new ArrayList<>();
+
+        try {
+            this.initConnection();
+            DatabaseMetaData databaseMetaData = connection.getMetaData();
+            ResultSet resultSet = databaseMetaData.getImportedKeys(connection.getCatalog(), null, table);
+            while (resultSet.next()) {
+                foreignKeyColumn = resultSet.getString("FKCOLUMN_NAME");
+                foreignKeys.add(foreignKeyColumn);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.closeConnection();
+        }
+        return foreignKeys;
+    }
+
+    public String checkColumnsAndTables(String table, List<String> columns) {
+        try {
+            this.initConnection();
+            String query = "SHOW TABLES";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            boolean tableFlag = false;
+            while (resultSet.next()) {
+                if(resultSet.getString(1).equalsIgnoreCase(table)) {
+                    tableFlag = true;
+                }
+            }
+
+            if(tableFlag) {
+                String query2 = "SELECT * FROM " + table;
+                ResultSet resultSet2 = statement.executeQuery(query2);
+                ResultSetMetaData resultSetMetaData = resultSet2.getMetaData();
+                for(int i = 1; i < resultSetMetaData.getColumnCount(); i++) {
+                    if(!resultSetMetaData.getColumnName(i).equalsIgnoreCase(columns.get(i))) {
+                        return "NE POSTOJI TABELA ILI KOLONA";
+                    }
+                }
+                return "null";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.closeConnection();
+        }
+        return "NE POSTOJI TABELA";
+    }
+
+    public String checkTable(String table) {
+        try {
+            this.initConnection();
+            String query = "SHOW TABLES";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                if(resultSet.getString(1).equalsIgnoreCase(table)) {
+                    return "CAOOO";
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.closeConnection();
+        }
+        return "NE POSTOJI TABELA";
     }
 }

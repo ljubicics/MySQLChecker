@@ -25,10 +25,10 @@ public class RequiredWordRule implements Rule {
         for(int i = 1; i < reci.length; i++) {
             if(KeywordsLoader.getInstance().getKeywordsList().contains(reci[i].toUpperCase())) {
                 if(reci[i].equalsIgnoreCase(value)) {
-                    return "null ";
+                    return "null";
                 }
             }
         }
-        return "FALI REQUIRED WORD";
+        return "REQUIRED_WORD";
     }
 }

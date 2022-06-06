@@ -31,18 +31,18 @@ public class AsRule implements Rule {
                                break;
                            } else {
                                if(KeywordsLoader.getInstance().getKeywordsList().contains(reci[br + 1].toUpperCase()) || reci[br].indexOf(',') == reci[br].length()-1) {
-                                   return "NIJE ISPOSTOVAN ALIAS ZA VISE RECI";
+                                   return "AS";
                                } else {
                                    continue;
                                }
                            }
                        }
                    } else {
-                       return "NIJE ISPOSTOVAN ALIAS ZA VISE RECI";
+                       return "AS";
                    }
                }
             }
         }
-        return "SIUUUUU";
+        return "null";
     }
 }

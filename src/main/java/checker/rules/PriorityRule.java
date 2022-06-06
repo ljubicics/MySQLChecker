@@ -26,22 +26,20 @@ public class PriorityRule implements Rule {
         List<Integer> nmbrList = new ArrayList<>();
         HashMap<String, Integer> mapa = MapaVaznostLoader.getInstance().getMapaVaznosti();
 
-
         for(int i = 0; i < reci.length; i++) {
-            if(KeywordsLoader.getInstance().getKeywordsList().contains(reci[i].toUpperCase())) {
+            if(mapa.containsKey(reci[i].toUpperCase())) {
                 nmbrList.add(mapa.get(reci[i].toUpperCase()));
             }
         }
-
-        Integer nmbrBefore = 0;
-        for(int i = 0; i < nmbrList.size(); i++) {
-            if(nmbrList.get(i) > nmbrBefore) {
-                nmbrBefore = nmbrList.get(i);
+        
+        //Integer nmbrBefore = 0;
+        for(int i = 0; i < nmbrList.size() - 1; i++) {
+            if(nmbrList.get(i) < nmbrList.get(i + 1)) {
                 continue;
             } else {
-                return "KLJUCNE SQL RECI NISU NAPISANE DOBRIM REDOSLEDOM";
+                return "PRIORITY";
             }
         }
-        return "SVE JE OK";
+        return "null";
     }
 }

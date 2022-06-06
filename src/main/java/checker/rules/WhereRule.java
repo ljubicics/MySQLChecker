@@ -17,10 +17,10 @@ public class WhereRule implements Rule {
               continue;
            } else if (fleg==true && !(KeywordsLoader.getInstance().getKeywordsList().contains(reci[i].toUpperCase()))){
                if (reci[i].contains("(")){
-                   return "nije ispravan WHERE iskaz";
+                   return "WHERE";
                }
            }
        }
-       return "iskaz je ispravan";
+       return "null";
     }
 }
